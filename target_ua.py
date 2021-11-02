@@ -20,8 +20,25 @@ def get_words(path, letters):
     Reads the file path. Checks the words with rules and returns a list of \
 tuples: word and part of speech
     """
-    pass
+    words_list = []
+    with open(path, 'r') as file:
+        info = file.readlines()
+    for line in info:
+        parts = line.split(' ', 1)
+        if 1 <= len(parts[0]) <= 5:
+            if parts[0][0] in letters:
+                if '/n' in parts[1] or 'noun' in parts[1]:
+                    words_list.append((parts[0], 'noun'))
+                if '/v' in parts[1] or 'verb' in parts[1]:
+                    words_list.append((parts[0], 'verb'))
+                if '/adj' in parts[1] or 'adj' in parts[1]:
+                    words_list.append((parts[0], 'adjective'))
+                if 'adv' in parts[1]:
+                    words_list.append((parts[0], 'adverb'))
+    print(words_list)
 
+
+print(get_words('base.lst', ['щ']))
 
 
 def check_user_words(user_words, language_part, letters, dict_of_words):
