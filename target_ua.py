@@ -20,6 +20,18 @@ def get_words(path: str, letters: List[str]) -> List[str]:
     """
     Reads the file path. Checks the words with rules and returns a list of \
 tuples: word and part of speech
+    >>> get_words("base.lst", ['щ'])
+    [('щасні', 'noun'), ('щасно', 'adverb'), ('щастя', 'noun'), ('ще', 'adverb'), \
+('щебет', 'noun'), ('щем', 'noun'), ('щемно', 'adverb'), ('щеня', 'noun'), ('щепа', 'noun'), \
+('щерба', 'noun'), ('щигля', 'noun'), ('щипак', 'noun'), ('щипок', 'noun'), ('щипці', 'noun'), \
+('щир', 'noun'), ('щирий', 'adjective'), ('щит', 'noun'), ('щиток', 'noun'), ('щі', 'noun'), \
+('щіпка', 'noun'), ('щітка', 'noun'), ('щіть', 'noun'), ('щічка', 'noun'), ('щогла', 'noun'), \
+('щодва', 'adverb'), ('щодві', 'adverb'), ('щодня', 'adverb'), ('щока', 'noun'), \
+('щоніч', 'adverb'), \
+('щораз', 'adverb'), ('щорік', 'adverb'), ('щотри', 'adverb'), ('щука', 'noun'), ('щуп', 'noun'), \
+('щупак', 'noun'), ('щупик', 'noun'), ('щупля', 'noun'), ('щур', 'noun'), ('щурик', 'noun'), \
+('щурка', 'noun'), ('щуря', 'noun'), ('щучий', 'adjective'), ('щучин', 'adjective'), \
+('щучка', 'noun')]
     """
     words_list = []
     with open(path, 'r') as file:
@@ -28,13 +40,13 @@ tuples: word and part of speech
         parts = line.split(' ', 1)
         if 1 <= len(parts[0]) <= 5:
             if parts[0][0] in letters:
-                if '/n' in parts[1] or 'noun' in parts[1]:
+                if parts[1].startswith('/n') or parts[1].startswith('noun'):
                     words_list.append((parts[0], 'noun'))
-                if '/v' in parts[1] or 'verb' in parts[1]:
+                if parts[1].startswith('/v') or parts[1].startswith('verb'):
                     words_list.append((parts[0], 'verb'))
-                if '/adj' in parts[1] or 'adj' in parts[1]:
+                if parts[1].startswith('/adj') or parts[1].startswith('adjective'):
                     words_list.append((parts[0], 'adjective'))
-                if 'adv' in parts[1]:
+                if parts[1].startswith('adv'):
                     words_list.append((parts[0], 'adverb'))
     return words_list
 
