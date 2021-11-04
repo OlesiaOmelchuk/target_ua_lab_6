@@ -1,6 +1,6 @@
 """Target game Ukrainian version"""
 import random
-from typing import List
+from typing import List, Tuple
 
 
 def generate_grid() -> List[str]:
@@ -16,7 +16,7 @@ def generate_grid() -> List[str]:
     return grid_list
 
 
-def get_words(path: str, letters: List[str]) -> List[str]:
+def get_words(path: str, letters: List[str]) -> List[Tuple[str]]:
     """
     Reads the file path. Checks the words with rules and returns a list of \
 tuples: word and part of speech
